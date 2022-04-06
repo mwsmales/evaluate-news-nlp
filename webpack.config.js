@@ -6,11 +6,11 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 module.exports = {
     entry: './src/client/index.js',
     mode: 'development',
-    stats: 'verbose',
+    /* stats: 'verbose', */
     module: {
         rules: [
             {
-                test: '/\.js$/',
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"
             }
@@ -21,5 +21,9 @@ module.exports = {
             template: "./src/client/views/index.html",
             filename: "./index.html",
         })
-    ]
+    ],
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    }
 }
