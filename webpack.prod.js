@@ -38,6 +38,8 @@ module.exports = {
     }, 
     output: {
         libraryTarget: 'var',
-        library: 'Client'
+        library: 'Client',
+        clean: true, // use instead of clean-webpack-plugin
+
     }
 }
