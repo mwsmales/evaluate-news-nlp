@@ -1,23 +1,43 @@
 var path = require('path')
-const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 
-const app = express()
+// initialize project data
+const projectData = {data: []};
 
-app.use(express.static('dist'))
+// initialize app
+const express = require('express');
+const app = express();
 
-console.log(__dirname)
+/* depdendencies */
+const bodyParser = require('body-parser');
+const cors = require('cors');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(cors());
+
+//refer local server to /dist/ files 
+app.use(express.static('dist'));
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
     // res.sendFile(path.resolve('src/client/views/index.html'))
-})
+});
 
-// designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
+// initialize server on port 8081
+const port = 8081;
+app.listen(port, function () {
     console.log('Example app listening on port 8081!')
-})
+});
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
-})
+// post request for app data
+app.post('/addEntry', function(req, res) {
+    res.send(JSON.stringify('POST received'));
+    console.log("Data received: ", req.body);
+    projectData['data'].push(req.body);
+    console.log("Project data: ", projectData);
+});
+
+// get request for app data
+app.get('/getData', function (req, res) {
+    res.send(projectData)
+});
