@@ -39,5 +39,6 @@ app.post('/addEntry', function(req, res) {
 
 // get request for app data
 app.get('/getData', function (req, res) {
-    res.send(projectData)
+    console.log('Get request received')
+    res.send(mockAPIResponse)
 });
