@@ -13,25 +13,25 @@ function handleSubmitGET(event) {
     })
 }
     
-function handleSubmitPOST(event) {
+async function handleSubmitPOST(event) {
     event.preventDefault();
 
     console.log('Posting data: ', "test data");
-     const response = fetch('http://localhost:8081/addEntry', {
-         method: 'POST', 
-         credentials: 'same-origin',
-         headers: {
-             'Content-Type': 'application/json',
-         },
-         // Body data type must match "Content-Type" header
-         body: JSON.stringify({data: 'test data'}),
-     });
-     try {
-         const responseData = response.json();
-         console.log("post response: ", responseData);
-     } catch(error) {
-         console.log("error: ", error);
-     }
+    const response = await fetch('http://localhost:8081/addEntry', {
+        method: 'POST', 
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Body data type must match "Content-Type" header
+        body: JSON.stringify({data: 'test data'}),
+    });
+    try { 
+       const responseData = await response.json();
+       console.log("post response: ", responseData);
+    } catch(error) {
+        console.log("error: ", error);
+    }
 }
         
 
