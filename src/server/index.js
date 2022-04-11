@@ -1,6 +1,10 @@
 var path = require('path')
 const mockAPIResponse = require('./mockAPI.js')
 
+// require dotenv so that we can use environmental variables
+const dotenv = require('dotenv');
+dotenv.config();
+
 // initialize project data
 const projectData = {data: []};
 
@@ -30,15 +34,18 @@ app.listen(port, function () {
 });
 
 // post request for app data
-app.post('/addEntry', function(req, res) {
-    res.send(JSON.stringify('POST received'));
+app.post('/submitText', function(req, res) {
     console.log("Data received: ", req.body);
-    projectData['data'].push(req.body);
+    projectData['data'].push(req.body.newEntry);
     console.log("Project data: ", projectData);
+    res.send(JSON.stringify('POST received'));
 });
 
 // get request for app data
 app.get('/getData', function (req, res) {
     console.log('Get request received')
-    res.send(mockAPIResponse)
+    res.send(projectData)
 });
+
+console.log(`Your API key is ${process.env.API_KEY}`);
+
