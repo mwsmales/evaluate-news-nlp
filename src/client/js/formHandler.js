@@ -1,25 +1,41 @@
-// enclosing async function to post the new entry then get the project data
+// enclosing async function to execute the async functions once the main button is submitted
 async function handleSubmit(event) {
     event.preventDefault();
+    // TODO: capture the user paragraph from the page (and validate that it is a paragraph?)
 
+    // TODO: GET the API key from the BE
+    const projectData = await handleSubmitGET('http://localhost:8081/getData');
+    
+    // TODO: execute web api call to meaningcloud with the form data and api key 
+
+    // TODO: post the data received from meaningcloud to the BE
     await handleSubmitPOST();
-
-    const projectData = await handleSubmitGET();
     console.log(projectData);
+
+    // TODO: update the UI
 
 }
 
+// async get function to test server get route
+async function handleSubmitGET(url = '') {
+    console.log('Fetching data from server');
+    const response = await fetch(url, {
+        method: 'GET', 
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    try {
+        const responseData = await response.json();
+        console.log("get response: ", responseData);
+        document.getElementById('results').innerHTML = responseData.data;
+        return(responseData);
+    } catch(error) {
+        console.log("error: ", error);
+    }
+}
 
-function handleSubmitGET() {
-    
-    // retrieve data from the server then update the UI
-    fetch('http://localhost:8081/getData')
-    .then(res => res.json())
-    .then(function(res) {
-        console.log(res.data);
-        document.getElementById('results').innerHTML = res.data;
-    });    
-}    
 async function handleSubmitPOST() {
     // submits the user's paragraph data to the backend
 

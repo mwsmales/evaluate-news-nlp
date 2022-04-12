@@ -33,7 +33,15 @@ app.listen(port, function () {
     console.log('Example app listening on port 8081!')
 });
 
-// post request for app data
+// TODO: Get request to return API key
+app.get('/getData', function (req, res) {
+    console.log('Get request received')
+    res.send(projectData)
+});
+
+console.log(`Your API key is ${process.env.API_KEY}`);
+
+// post request to log app data
 app.post('/submitText', function(req, res) {
     console.log("Data received: ", req.body);
     projectData['data'].push(req.body.newEntry);
@@ -41,11 +49,4 @@ app.post('/submitText', function(req, res) {
     res.send(JSON.stringify('POST received'));
 });
 
-// get request for app data
-app.get('/getData', function (req, res) {
-    console.log('Get request received')
-    res.send(projectData)
-});
-
-console.log(`Your API key is ${process.env.API_KEY}`);
 
