@@ -1,5 +1,5 @@
 import { checkForName } from './js/nameChecker'
-import { handleSubmitGET } from './js/formHandler'
+import { handleSubmitGetApi } from './js/formHandler'
 import { handleSubmitPOST } from './js/formHandler'
 import { handleSubmit } from './js/formHandler'
 
@@ -14,7 +14,7 @@ alert("I EXIST");
 
 export { 
     checkForName,
-    handleSubmitGET,
+    handleSubmitGetApi,
     handleSubmitPOST,
     handleSubmit,
 }

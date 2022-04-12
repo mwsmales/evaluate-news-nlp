@@ -25,21 +25,19 @@ app.use(express.static('dist'));
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
     // res.sendFile(path.resolve('src/client/views/index.html'))
-});
+})
 
 // initialize server on port 8081
 const port = 8081;
 app.listen(port, function () {
     console.log('Example app listening on port 8081!')
-});
+})
 
 // TODO: Get request to return API key
-app.get('/getData', function (req, res) {
-    console.log('Get request received')
-    res.send(projectData)
-});
-
-console.log(`Your API key is ${process.env.API_KEY}`);
+app.get('/getAPIKey', function (req, res) {
+    console.log('API key request received')
+    res.send(`{"key": "${process.env.API_KEY}"}`)
+})
 
 // post request to log app data
 app.post('/submitText', function(req, res) {
@@ -47,6 +45,6 @@ app.post('/submitText', function(req, res) {
     projectData['data'].push(req.body.newEntry);
     console.log("Project data: ", projectData);
     res.send(JSON.stringify('POST received'));
-});
+})
 
 

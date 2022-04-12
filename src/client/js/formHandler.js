@@ -4,33 +4,33 @@ async function handleSubmit(event) {
     // TODO: capture the user paragraph from the page (and validate that it is a paragraph?)
 
     // TODO: GET the API key from the BE
-    const projectData = await handleSubmitGET('http://localhost:8081/getData');
+    const APIKey = await handleSubmitGetApi('http://localhost:8081/getAPIKey');
+    console.log("API key: ", APIKey);
+
     
     // TODO: execute web api call to meaningcloud with the form data and api key 
 
     // TODO: post the data received from meaningcloud to the BE
-    await handleSubmitPOST();
-    console.log(projectData);
+    // await handleSubmitPOST();
+    // console.log(projectData);
 
     // TODO: update the UI
 
 }
 
 // async get function to test server get route
-async function handleSubmitGET(url = '') {
-    console.log('Fetching data from server');
+async function handleSubmitGetApi(url = '') {
+    console.log('Fetching API key from server');
     const response = await fetch(url, {
         method: 'GET', 
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
         }
-    });
+    })
     try {
-        const responseData = await response.json();
-        console.log("get response: ", responseData);
-        document.getElementById('results').innerHTML = responseData.data;
-        return(responseData);
+        const data = await response.json();
+        return(data.key);
     } catch(error) {
         console.log("error: ", error);
     }
@@ -52,7 +52,7 @@ async function handleSubmitPOST() {
         },    
         // Body data type must match "Content-Type" header
         body: JSON.stringify({newEntry: formText}),
-    });    
+    })
     try { 
         // wait to get a non-error response from the server, then exit the function
        const responseData = await response.json(); 
@@ -63,7 +63,7 @@ async function handleSubmitPOST() {
 }    
 
 export { 
-    handleSubmitGET, 
+    handleSubmitGetApi, 
     handleSubmitPOST,
     handleSubmit
 }
