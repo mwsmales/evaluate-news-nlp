@@ -2,7 +2,9 @@
 async function handleSubmit(event) {
     event.preventDefault();
     
-    // Declare local variables
+    // TODO: check that some text has been entered into the field, and if not show user an error
+
+    // Initialize local variables
     const paragraph = document.getElementById('inputPara').value;
     const baseUrl = 'https://api.meaningcloud.com/sentiment-2.1'; 
 
@@ -13,9 +15,8 @@ async function handleSubmit(event) {
     const sentiment = await meaningCloudGet(baseUrl, APIKey, paragraph);
     console.log('MeaningClound response: ', sentiment)
     
-    // TODO: post the data received from meaningcloud to the BE
-    // await handleSubmitPOST();
-    // console.log(projectData);
+    // post the data received from meaningcloud to the BE
+    await postSentiment(paragraph, sentiment);
     
     // TODO: update the UI
     
@@ -40,32 +41,6 @@ async function handleSubmitGetApi(url = '') {
     }
 }
 
-async function handleSubmitPOST() {
-    // submits the user's paragraph data to the backend
-
-    // check what text was put into the form field
-    let formText = document.getElementById('name').value;
-    Client.checkForName(formText);
-    
-    console.log('Posting data: ', formText);
-    const response = await fetch('http://localhost:8081/submitText', {
-        method: 'POST', 
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },    
-        // Body data type must match "Content-Type" header
-        body: JSON.stringify({newEntry: formText}),
-    })
-    try { 
-        // wait to get a non-error response from the server, then exit the function
-       const responseData = await response.json(); 
-       console.log("post response: ", responseData);
-    } catch(error) {
-        console.log("error: ", error);
-    }    
-}
-
 async function meaningCloudGet (baseUrl = '', apiKey = '', paragraph = '') {
     console.log ('Making MeaningCloud reqeust...');
     console.log('meaningcloud url: ', `${baseUrl}?key=${apiKey}&lang=auto&txt=${paragraph}`)
@@ -78,9 +53,33 @@ async function meaningCloudGet (baseUrl = '', apiKey = '', paragraph = '') {
     }
 }
 
+async function postSentiment(formText, sentiment) {
+    // submits the user's paragraph data to the backend
+    
+    const postData = {"paragraph": formText, "sentiment": sentiment};
+
+    console.log('Posting data: ', postData);
+    const response = await fetch('http://localhost:8081/submitText', {
+        method: 'POST', 
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },    
+        // Body data type must match "Content-Type" header
+        body: JSON.stringify(postData),
+    })
+    try { 
+        // wait to get a non-error response from the server, then exit the function
+       const responseData = await response.json(); 
+       console.log("post response: ", responseData);
+    } catch(error) {
+        console.log("error: ", error);
+    }    
+}
+
 export { 
     handleSubmitGetApi, 
-    handleSubmitPOST,
+    postSentiment,
     handleSubmit, 
     meaningCloudGet
 }

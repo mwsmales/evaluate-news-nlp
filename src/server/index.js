@@ -42,7 +42,7 @@ app.get('/getAPIKey', function (req, res) {
 // post request to log app data
 app.post('/submitText', function(req, res) {
     console.log("Data received: ", req.body);
-    projectData['data'].push(req.body.newEntry);
+    projectData['data'].push(req.body);
     console.log("Project data: ", projectData);
     res.send(JSON.stringify('POST received'));
 })
