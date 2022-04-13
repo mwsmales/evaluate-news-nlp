@@ -5,20 +5,30 @@ async function handleSubmit(event) {
     // TODO: check that some text has been entered into the field, and if not show user an error
 
     // Initialize local variables
-    const paragraph = document.getElementById('inputPara').value;
+    // const paragraph = document.getElementById('inputPara').value;
+    const paragraph = 'For most gardeners, stones – along with slugs, blackfly and weeds – are a pest, something to be eradicated. Yet in Japan, some of the most astonishing gardens consist of nothing but rocks and stones. As 19th-Century writer Lafcadio Hearn wrote: "to comprehend the beauty of a Japanese garden, it is necessary to understand the beauty of stones."';
     const baseUrl = 'https://api.meaningcloud.com/sentiment-2.1'; 
 
     // Get the API key from the BE
     const APIKey = await handleSubmitGetApi('http://localhost:8081/getAPIKey');
     
     // Execute web api call to meaningcloud with the form data and api key
-    const sentiment = await meaningCloudGet(baseUrl, APIKey, paragraph);
+    // const sentiment = await meaningCloudGet(baseUrl, APIKey, paragraph);
+    const sentiment = {
+        "agreement": "DISAGREEMENT",
+        "confidence": "92",
+        "irony": "NONIRONIC",
+        "score_tag": "P",
+        "subjectivity": "OBJECTIVE"
+    };
+    
     console.log('MeaningClound response: ', sentiment)
     
     // post the data received from meaningcloud to the BE
     await postSentiment(paragraph, sentiment);
     
     // TODO: update the UI
+    updateUI();
     
 }
 
@@ -77,9 +87,18 @@ async function postSentiment(formText, sentiment) {
     }    
 }
 
+function updateUI() {
+    console.log('Updating UI...');
+    const fragment = document.createDocumentFragment();
+
+    const newDiv = document.createElement('div');
+    newDiv.classList += 'newclass';
+}
+
 export { 
     handleSubmitGetApi, 
     postSentiment,
     handleSubmit, 
-    meaningCloudGet
+    meaningCloudGet, 
+    updateUI
 }

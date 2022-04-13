@@ -3,6 +3,7 @@ import { handleSubmitGetApi } from './js/formHandler'
 import { postSentiment } from './js/formHandler'
 import { handleSubmit } from './js/formHandler'
 import { meaningCloudGet } from './js/formHandler'
+import { updateUI } from './js/formHandler'
 
 import './styles/resets.scss'
 import './styles/base.scss'
@@ -18,5 +19,6 @@ export {
     handleSubmitGetApi,
     postSentiment,
     handleSubmit,
-    meaningCloudGet
+    meaningCloudGet,
+    updateUI
 }
