@@ -1,4 +1,4 @@
-import { checkForName } from './js/nameChecker'
+import { checkFormInput } from './js/nameChecker'
 import { handleSubmitGetApi } from './js/formHandler'
 import { postSentiment } from './js/formHandler'
 import { handleSubmit } from './js/formHandler'
@@ -15,7 +15,7 @@ import './styles/footer.scss'
 console.log("Page reloaded...");
 
 export { 
-    checkForName,
+    checkFormInput,
     handleSubmitGetApi,
     postSentiment,
     handleSubmit,

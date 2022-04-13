@@ -1,19 +1,25 @@
+import { checkFormInput } from "./nameChecker";
+
 // enclosing async function to execute the async functions once the main button is submitted
 async function handleSubmit(event) {
     event.preventDefault();
     
-    // TODO: check that some text has been entered into the field, and if not show user an error
-
     // Initialize local variables
-    // const paragraph = document.getElementById('inputPara').value;
-    const paragraph = 'For most gardeners, stones – along with slugs, blackfly and weeds – are a pest, something to be eradicated. Yet in Japan, some of the most astonishing gardens consist of nothing but rocks and stones. As 19th-Century writer Lafcadio Hearn wrote: "to comprehend the beauty of a Japanese garden, it is necessary to understand the beauty of stones."';
+    const paragraph = document.getElementById('inputPara').value;
+    // const paragraph = 'For most gardeners, stones – along with slugs, blackfly and weeds – are a pest, something to be eradicated. Yet in Japan, some of the most astonishing gardens consist of nothing but rocks and stones. As 19th-Century writer Lafcadio Hearn wrote: "to comprehend the beauty of a Japanese garden, it is necessary to understand the beauty of stones."';
     const baseUrl = 'https://api.meaningcloud.com/sentiment-2.1'; 
+    
+    // TODO: check that some text has been entered into the field, and if not show user an error
+    if (checkFormInput(paragraph) == false) {
+        return;
+    } 
 
     // Get the API key from the BE
     const APIKey = await handleSubmitGetApi('http://localhost:8081/getAPIKey');
     
     // Execute web api call to meaningcloud with the form data and api key
-    // const sentiment = await meaningCloudGet(baseUrl, APIKey, paragraph);
+    const sentiment = await meaningCloudGet(baseUrl, APIKey, paragraph);
+    /* 
     const sentiment = {
         "agreement": "DISAGREEMENT",
         "confidence": "92",
@@ -21,6 +27,7 @@ async function handleSubmit(event) {
         "score_tag": "P",
         "subjectivity": "OBJECTIVE"
     };
+    */
 
     // append the para to the sentiment before logging with server
     sentiment.text = paragraph 
@@ -116,7 +123,8 @@ function updateUI(sentiment) {
 }
 
 export { 
-    handleSubmitGetApi, 
+    handleSubmitGetApi,
+    checkFormInput,
     postSentiment,
     handleSubmit, 
     meaningCloudGet, 

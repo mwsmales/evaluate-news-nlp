@@ -18,18 +18,16 @@
 
         <main>
             <section>
-                <form class="" onsubmit="return Client.handleSubmit(event)">
+                <form class="inputForm" id="inputForm" onsubmit="return Client.handleSubmit(event)">
                     <input id="inputPara" type="text" name="input" value="" onblur="onBlur()" placeholder="Enter paragraph to analyze">
                     <input type="button" name="" value="Test POST" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+                    <label id="errorMessage"></label>
                 </form>
             </section>
 
             <section>
                 <strong>Form Results:</strong>
-                <div id="results">
-                    <div id="resultsTextAnalyzed"><p><strong>Text Analyzed: </strong>Lorem ipsum ... ... ...</p></div>
-                    <div id="resultsSentiment"><p><strong>Subjectivity: </strong>Agreement</p></div>
-                </div>
+                <div id="results"></div>
             </section>
         </main>
 
