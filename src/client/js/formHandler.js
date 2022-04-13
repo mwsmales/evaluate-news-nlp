@@ -12,7 +12,7 @@ async function handleSubmit(event) {
     const baseUrl = 'https://api.meaningcloud.com/sentiment-2.1'; 
     // const paragraph = 'For most gardeners, stones – along with slugs, blackfly and weeds – are a pest, something to be eradicated. Yet in Japan, some of the most astonishing gardens consist of nothing but rocks and stones. As 19th-Century writer Lafcadio Hearn wrote: "to comprehend the beauty of a Japanese garden, it is necessary to understand the beauty of stones."';
     
-    // TODO: check that some text has been entered into the field, and if not show user an error
+    // check that some text has been entered into the field, and if not show user an error
     if (checkFormInput(paragraph) == false) {
         return;
     } 
@@ -39,13 +39,23 @@ async function handleSubmit(event) {
     // post the data received from meaningcloud to the BE
     await postSentiment(sentiment);
     
-    // TODO: update the UI
+    // update the UI
     updateUI(sentiment);
     
 }
 
 function updateUI(sentiment) {
     console.log('Updating UI...');
+
+    // define sections to include, the display order, and display text
+    const displaySections = {
+        "text": "Text analyzed",
+        "score_tag": "Sentiment score",
+        "subjectivity": "Subjectivity",
+        "agreement": "Agreement / Disagreement",
+        "irony": "Irony",
+        "confidence": "Confidence",
+    };
 
     const resultsDiv = document.getElementById('results');
     const fragment = document.createDocumentFragment();
@@ -54,19 +64,24 @@ function updateUI(sentiment) {
     while (resultsDiv.firstChild) {
         resultsDiv.removeChild(resultsDiv.lastChild);
     }
-
-    // add sentiment values
-    for (let key in sentiment) {
-        // add the key as the category heading
-        const newHeadingDiv = document.createElement('div');
-        newHeadingDiv.classList += 'headingDiv';
-        newHeadingDiv.innerHTML = `<p>${key}</p>`;
-        // add the value as the body 
-        const newBodyDiv = document.createElement('div');
-        newBodyDiv.classList += 'bodyDiv';
-        newBodyDiv.innerHTML = `<p>${sentiment[key]}</p>`;
-        fragment.append(newHeadingDiv);
-        fragment.append(newBodyDiv);
+    
+    // add sentiment results to new elements
+    for (let key in displaySections) {
+        if (key in sentiment) {
+            console.log(key, displaySections[key], sentiment[key]);
+            // add the key as the category heading
+            const newHeadingDiv = document.createElement('div');
+            newHeadingDiv.classList += 'headingDiv';
+            newHeadingDiv.innerHTML = `<p>${displaySections[key]}</p>`;
+            newHeadingDiv.id = `heading_${key}`;
+            // add the value as the body 
+            const newBodyDiv = document.createElement('div');
+            newBodyDiv.classList += 'bodyDiv';
+            newBodyDiv.innerHTML = `<p>${sentiment[key]}</p>`;
+            newBodyDiv.id = `body_${key}`;
+            fragment.append(newHeadingDiv);
+            fragment.append(newBodyDiv);            
+        }
     }
     resultsDiv.append(fragment);
     console.log('UI updated')

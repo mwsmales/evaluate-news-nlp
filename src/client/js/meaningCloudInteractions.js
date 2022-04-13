@@ -9,3 +9,7 @@ async function meaningCloudGet (baseUrl = '', apiKey = '', paragraph = '') {
         console.log('Meaningcloud API erorr: ', error);
     }
 }
+
+export {
+    meaningCloudGet
+}
