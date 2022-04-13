@@ -21,14 +21,16 @@ async function handleSubmit(event) {
         "score_tag": "P",
         "subjectivity": "OBJECTIVE"
     };
-    
+
+    // append the para to the sentiment before logging with server
+    sentiment.text = paragraph 
     console.log('MeaningClound response: ', sentiment)
     
     // post the data received from meaningcloud to the BE
-    await postSentiment(paragraph, sentiment);
+    await postSentiment(sentiment);
     
     // TODO: update the UI
-    updateUI();
+    updateUI(sentiment);
     
 }
 
@@ -63,12 +65,10 @@ async function meaningCloudGet (baseUrl = '', apiKey = '', paragraph = '') {
     }
 }
 
-async function postSentiment(formText, sentiment) {
+async function postSentiment(sentiment) {
     // submits the user's paragraph data to the backend
     
-    const postData = {"paragraph": formText, "sentiment": sentiment};
-
-    console.log('Posting data: ', postData);
+    console.log('Posting data: ', sentiment);
     const response = await fetch('http://localhost:8081/submitText', {
         method: 'POST', 
         credentials: 'same-origin',
@@ -76,7 +76,7 @@ async function postSentiment(formText, sentiment) {
             'Content-Type': 'application/json',
         },    
         // Body data type must match "Content-Type" header
-        body: JSON.stringify(postData),
+        body: JSON.stringify(sentiment),
     })
     try { 
         // wait to get a non-error response from the server, then exit the function
@@ -87,12 +87,32 @@ async function postSentiment(formText, sentiment) {
     }    
 }
 
-function updateUI() {
+function updateUI(sentiment) {
     console.log('Updating UI...');
-    const fragment = document.createDocumentFragment();
 
-    const newDiv = document.createElement('div');
-    newDiv.classList += 'newclass';
+    const resultsDiv = document.getElementById('results');
+    const fragment = document.createDocumentFragment();
+    
+    // remove all children from the 'results' div
+    while (resultsDiv.firstChild) {
+        resultsDiv.removeChild(resultsDiv.lastChild);
+    }
+
+    // add sentiment values
+    for (let key in sentiment) {
+        // add the key as the category heading
+        const newHeadingDiv = document.createElement('div');
+        newHeadingDiv.classList += 'headingDiv';
+        newHeadingDiv.innerHTML = `<p>${key}</p>`;
+        // add the value as the body 
+        const newBodyDiv = document.createElement('div');
+        newBodyDiv.classList += 'bodyDiv';
+        newBodyDiv.innerHTML = `<p>${sentiment[key]}</p>`;
+        fragment.append(newHeadingDiv);
+        fragment.append(newBodyDiv);
+    }
+    resultsDiv.append(fragment);
+    console.log('UI updated')
 }
 
 export { 
