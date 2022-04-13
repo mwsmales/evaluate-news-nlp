@@ -1,5 +1,5 @@
-import { checkFormInput } from './js/nameChecker'
-import { handleSubmitGetApi } from './js/formHandler'
+import { checkFormInput } from './js/formChecker'
+import { getApiKey } from './js/formHandler'
 import { postSentiment } from './js/formHandler'
 import { handleSubmit } from './js/formHandler'
 import { meaningCloudGet } from './js/formHandler'
@@ -16,7 +16,7 @@ console.log("Page reloaded...");
 
 export { 
     checkFormInput,
-    handleSubmitGetApi,
+    getApiKey,
     postSentiment,
     handleSubmit,
     meaningCloudGet,

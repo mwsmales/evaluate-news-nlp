@@ -1,5 +1,4 @@
 var path = require('path')
-const mockAPIResponse = require('./mockAPI.js')
 
 // require dotenv so that we can use environmental variables
 const dotenv = require('dotenv');
@@ -33,7 +32,7 @@ app.listen(port, function () {
     console.log('Example app listening on port 8081!')
 })
 
-// TODO: Get request to return API key
+// Get request to return API key
 app.get('/getAPIKey', function (req, res) {
     console.log('API key request received')
     res.send(`{"key": "${process.env.API_KEY}"}`)
