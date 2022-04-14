@@ -66,6 +66,7 @@ function updateUI(sentiment) {
     }
     
     // add sentiment results to new elements
+    
     for (let key in displaySections) {
         if (key in sentiment) {
             console.log(key, displaySections[key], sentiment[key]);

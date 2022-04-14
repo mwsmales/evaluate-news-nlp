@@ -2,37 +2,36 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Sentiment Analysis Tool</title>
     </head>
 
     <body>
 
         <header>
-            <div class="">
-                <h1>Logo</h1>
-            </div>
-            <div class="">
-                navigation
+            <div class="header">
+                <h1>Michael's Sentiment Analysis Tool</h1>
             </div>
         </header>
 
         <main>
-            <section>
+            <section id="inputSection">
                 <form class="inputForm" id="inputForm" onsubmit="return Client.handleSubmit(event)">
-                    <input id="inputPara" type="text" name="input" value="" onblur="onBlur()" placeholder="Enter paragraph to analyze">
-                    <input type="button" name="" value="Test POST" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+                    <label>Enter a paragraph to analyze:</label>
+                    <input id="inputPara" type="text" name="input" value="" placeholder="Enter text here">
+                    <input type="button" name="" value="Analyze!" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
                     <label id="errorMessage"></label>
                 </form>
             </section>
 
-            <section>
-                <strong>Form Results:</strong>
+            <section id="outputSection">
                 <div id="results"></div>
             </section>
         </main>
 
         <footer>
-            <p>This is a footer</p>
+            <p>&copy Michael Smales April 2022</p>
+            <p>Analysis uses MeaningCloud.com</p>
         </footer>
 
     </body>
