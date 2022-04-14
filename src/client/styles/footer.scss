@@ -6,3 +6,10 @@ footer {
         padding: 20px 20px;
     }
 }
+
+
+@media (max-width: 700px) {
+    footer {
+        flex-direction: column;
+    }
+}

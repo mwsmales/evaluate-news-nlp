@@ -18,7 +18,8 @@
             <section id="inputSection">
                 <form class="inputForm" id="inputForm" onsubmit="return Client.handleSubmit(event)">
                     <label>Enter a paragraph to analyze:</label>
-                    <input id="inputPara" type="text" name="input" value="" placeholder="Enter text here">
+                    <!--input id="inputPara" type="text" name="input" value="" placeholder="Enter text here"-->
+                    <textarea id="inputPara" placeholder="Enter text here"></textarea> 
                     <input type="button" name="" value="Analyze!" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
                     <label id="errorMessage"></label>
                 </form>

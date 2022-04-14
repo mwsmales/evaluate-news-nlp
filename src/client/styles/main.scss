@@ -17,6 +17,22 @@ section {
 }
 
 
+/* Tablets */
+@media (max-width: 1000px) {
+    section {
+        max-width: 600px;
+        margin: 50px auto;
+    }    
+}
+
+
+/* Small screens */
+@media (max-width: 700px) {
+    section {
+        margin: 50px 20px;
+    }
+}
+
 /* results section */
 #results {
     display: grid;
@@ -47,4 +63,11 @@ section {
 }
 
 
+/* Small screens */
+@media (max-width: 700px) {
+    #results {
+        display: flex;
+        flex-direction: column;
+    }
+}
 

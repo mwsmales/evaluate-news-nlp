@@ -52,7 +52,7 @@ function updateUI(sentiment) {
         "text": "Text analyzed",
         "score_tag": "Sentiment score",
         "subjectivity": "Subjectivity",
-        "agreement": "Agreement / Disagreement",
+        "agreement": "Agreement",
         "irony": "Irony",
         "confidence": "Confidence",
     };
