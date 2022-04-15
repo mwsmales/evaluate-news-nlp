@@ -24,6 +24,7 @@ async function handleSubmit(event) {
     const sentiment = await meaningCloudGet(baseUrl, APIKey, paragraph);
     /* 
     const sentiment = {
+        "text": "sample text"
         "agreement": "DISAGREEMENT",
         "confidence": "92",
         "irony": "NONIRONIC",
