@@ -1,11 +1,9 @@
-var path = require('path')
+var path = require('path');
+const routeFunctions = require('./routeFunctions');
 
 // require dotenv so that we can use environmental variables
 const dotenv = require('dotenv');
 dotenv.config();
-
-// initialize project data
-const projectData = {data: []};
 
 // initialize app
 const express = require('express');
@@ -32,17 +30,8 @@ app.listen(port, function () {
 })
 
 // Get request to return API key
-app.get('/getAPIKey', function (req, res) {
-    console.log('API key request received')
-    res.send(`{"key": "${process.env.API_KEY}"}`)
-})
+app.get('/getAPIKey', routeFunctions.sendKey);
 
 // post request to log app data
-app.post('/submitText', function(req, res) {
-    console.log("Data received: ", req.body);
-    projectData['data'].push(req.body);
-    console.log("Project data: ", projectData);
-    res.send(JSON.stringify('POST received'));
-})
-
+app.post('/submitText', routeFunctions.logData);
 
