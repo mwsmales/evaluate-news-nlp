@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const workbox = require ("workbox-webpack-plugin");
 
 
 
@@ -28,7 +29,10 @@ module.exports = {
             template: "./src/client/views/index.html",
             filename: "./index.html",
         }),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin(),
+		new workbox.GenerateSW({
+			swDest: './sw.js'
+        })
     ],
     optimization: {
         minimizer: [
